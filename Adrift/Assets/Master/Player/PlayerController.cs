@@ -71,6 +71,10 @@ namespace Adrift.Game
         public Vector3 mCameraOffset;
         public Vector3 mCameraStartOffset { get; private set; }
 
+        Vector3 mCarryPosition;
+        Quaternion mCarryRotation;
+        float mCarryTime;
+
         [SerializeField]
         APlayerState mState;
 
@@ -92,7 +96,7 @@ namespace Adrift.Game
 
             mCameraStartOffset = mCameraOffset = mCtrl.transform.InverseTransformPoint(mCam.transform.position);
 
-            PlayerBody = GetComponent<Rigidbody>(); 
+            PlayerBody = GetComponent<Rigidbody>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
@@ -102,17 +106,17 @@ namespace Adrift.Game
             {
                 sate.Setup(this);
             }
-            if(mState)
+            if (mState)
             {
                 mState.Enter(this, null);
             }
         }
 
-        
+
         public bool Transit(APlayerState toState)
         {
             //TODO:[Gafgar: Sat/01-02-2020] implement recursive guard!
-            if(toState.CanEnter(this, mState))
+            if (toState.CanEnter(this, mState))
             {
                 mState.Exit(this, toState);
                 var oldState = mState;
@@ -155,10 +159,9 @@ namespace Adrift.Game
             }
             {
                 GameObject rayHit = null;
-                
-                Debug.DrawLine(mCam.transform.position, mCam.transform.position + mCam.transform.forward * mPickupRange);
+
                 int nbHits = Physics.RaycastNonAlloc(mCam.transform.position, mCam.transform.forward, _hitBuffer, mPickupRange, -1, QueryTriggerInteraction.Ignore);
-                if (nbHits> 0)
+                if (nbHits > 0)
                 {
                     for (int index = nbHits; index < _hitBuffer.Length; index++)
                     {
@@ -166,7 +169,7 @@ namespace Adrift.Game
                     }
                     System.Array.Sort(_hitBuffer, (a, b) => (a.distance > b.distance) ? 1 : ((a.distance < b.distance) ? -1 : 0));
                     var obj = _hitBuffer[0].collider;
-                    if(obj.gameObject == gameObject)
+                    if (obj.gameObject == gameObject)
                     {
                         if (nbHits > 1)
                         {
@@ -180,14 +183,13 @@ namespace Adrift.Game
                     if (obj)
                     {
                         rayHit = obj.gameObject;
-                        Debug.Log("Hit: " + rayHit.name);
                     }
                 }
                 if (rayHit != mLastHeighlightObj)
                 {
-                    if(mLastHeighlightObj)
+                    if (mLastHeighlightObj)
                     {
-                        
+
                         ComponentBase comp = mLastHeighlightObj.GetComponent<ComponentBase>();
                         if (comp)
                         {
@@ -200,7 +202,7 @@ namespace Adrift.Game
                         }
                     }
                     mLastHeighlightObj = rayHit;
-                    if(mLastHeighlightObj)
+                    if (mLastHeighlightObj)
                     {
                         Debug.DrawLine(mCam.transform.position + mCam.transform.forward, mLastHeighlightObj.transform.position);
                         if (!mCarryingComponent)
@@ -217,56 +219,61 @@ namespace Adrift.Game
                         }
                     }
                 }
-                if (mLastHeighlightObj)
-                {
-                    Debug.DrawLine(mCam.transform.position + mCam.transform.forward, mLastHeighlightObj.transform.position);
-                }
             }
-            if (mLastHeighlightObj && Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
                 if (!mCarryingComponent)
                 {
-                    ComponentBase comp = mLastHeighlightObj.GetComponent<ComponentBase>();
-                    if (comp)
+                    if (mLastHeighlightObj)
                     {
-                        if (comp.IsConnected())
+                        ComponentBase comp = mLastHeighlightObj.GetComponent<ComponentBase>();
+                        if (comp)
                         {
-                            if (comp.CanDisconnect())
+                            if (comp.IsConnected())
                             {
-                                comp.Disconnect();
+                                if (comp.CanDisconnect())
+                                {
+                                    comp.Disconnect();
+                                }
                             }
-                        }
 
-                        if (!comp.IsConnected())
-                        {
-                            Debug.Log("Picked up: " + comp.name);
-                            mCarryingComponent = comp;
-                            Collider[] colliders = mCarryingComponent.GetComponentsInChildren<Collider>();
-                            foreach (Collider c in colliders)
+                            if (!comp.IsConnected())
                             {
-                                c.enabled = false;
+                                Debug.Log("Picked up: " + comp.name);
+                                mCarryingComponent = comp;
+
+                                mCarryPosition = mCarryingComponent.transform.position;
+                                mCarryRotation = mCarryingComponent.transform.rotation;
+                                mCarryTime = 0;
+
+                                Collider[] colliders = mCarryingComponent.GetComponentsInChildren<Collider>();
+                                foreach (Collider c in colliders)
+                                {
+                                    c.enabled = false;
+                                }
+                                mCarryingComponent._Body.isKinematic = true;
                             }
-                            mCarryingComponent._Body.isKinematic = true;
                         }
                     }
                 }
                 else
                 {
                     Collider[] colliders = mCarryingComponent.GetComponentsInChildren<Collider>();
-                    foreach(Collider c in colliders)
+                    foreach (Collider c in colliders)
                     {
                         c.enabled = true;
                     }
-
-                    AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
-                    if (con)
+                    if (mLastHeighlightObj)
                     {
-                        if (con.CanConnect(mCarryingComponent))
+                        AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
+                        if (con)
                         {
-                            mCarryingComponent.ConnectTo(con);
+                            if (con.CanConnect(mCarryingComponent))
+                            {
+                                mCarryingComponent.ConnectTo(con);
+                            }
                         }
                     }
-
                     if (!mCarryingComponent.IsConnected())
                     {
                         Debug.Log("Dropped: " + mCarryingComponent.name);
@@ -315,7 +322,7 @@ namespace Adrift.Game
             Vector3 bottomSphere = mCtrl.transform.position + new Vector3(0, mCtrl.height * -0.5f + mCtrl.radius + 0.1f, 0);
             if (mGrounded)
             {
-                bottomSphere.y += mCtrl.stepOffset + mCtrl.radius*0.5f; //move up from the ground so we don't count small steps as blocking
+                bottomSphere.y += mCtrl.stepOffset + mCtrl.radius * 0.5f; //move up from the ground so we don't count small steps as blocking
             }
             Vector3 topSphere = mCtrl.transform.position + new Vector3(0, mCtrl.height * 0.5f + mCtrl.radius - 0.1f, 0);
 
@@ -327,10 +334,10 @@ namespace Adrift.Game
             RaycastHit hit;
             if (Physics.CapsuleCast(bottomSphere, topSphere, mCtrl.radius, mVelocity.normalized, out hit, mVelocity.magnitude * Time.fixedDeltaTime * 3, -1, QueryTriggerInteraction.Ignore))
             {
-               // Debug.Log("hit :" + hit.collider.gameObject.name + ": normal: " + hit.normal);
-                if(hit.rigidbody && !hit.rigidbody.isKinematic)
+                // Debug.Log("hit :" + hit.collider.gameObject.name + ": normal: " + hit.normal);
+                if (hit.rigidbody && !hit.rigidbody.isKinematic)
                 {
-                    hit.rigidbody.AddForceAtPosition(mVelocity*200.7f, hit.point, ForceMode.Force);
+                    hit.rigidbody.AddForceAtPosition(mVelocity * 200.7f, hit.point, ForceMode.Force);
                 }
                 if (hit.normal.y < 0.75f)//not ground?
                 {
@@ -347,16 +354,23 @@ namespace Adrift.Game
                 }
             }
 
-            if(mCarryingComponent)
+            if (mCarryingComponent)
             {
                 float distance = 12;
                 float heightOffset = 0.3f;
-                if(mCarryingComponent._collider)
-                {
-                    distance = mCarryingComponent._collider.bounds.extents.magnitude * 2 + 2.3f;
-                    heightOffset = mCarryingComponent._collider.bounds.extents.y;
-                }
-                mCarryingComponent.transform.position = mCam.transform.position + mCam.transform.forward * distance + new Vector3(0,-heightOffset,0);
+                distance = mCarryingComponent._colliderExt.magnitude + 0.3f;
+                Vector3 up = mCam.transform.up;
+
+                float speedMod = Mathf.Min(1.0f, 0.2f + mCarryTime * 0.8f);
+                
+                heightOffset = 1.0f - up.y*0.5f;
+               
+                mCarryPosition += ((mCam.transform.position + mCam.transform.forward * distance - up * heightOffset) - mCarryPosition) * 60.0f* speedMod * Time.fixedDeltaTime;
+                mCarryRotation = Quaternion.Slerp(mCarryRotation, mCam.transform.rotation, 12.0f * speedMod * Time.fixedDeltaTime);
+                mCarryingComponent.transform.position = mCarryPosition;
+                mCarryingComponent.transform.rotation = mCarryRotation;
+
+
             }
 
             mVelocitySoft += (mVelocity - mVelocitySoft) * 3.0f * Time.fixedDeltaTime;

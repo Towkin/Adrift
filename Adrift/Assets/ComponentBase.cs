@@ -8,6 +8,7 @@ public class ComponentBase : MonoBehaviour
 {
     public Rigidbody _Body;
     public Collider _collider;
+    public Vector3 _colliderExt;
     public bool _isLocked = false;
     public bool _isWorking = true;
     public AbstractConnection _Connection;
@@ -60,6 +61,14 @@ public class ComponentBase : MonoBehaviour
             var c = _Connection;
             Disconnect();
             ConnectTo(c);
+        }
+        if(_collider)
+        {
+            _colliderExt = _collider.bounds.extents;
+        }
+        else
+        {
+            _colliderExt.Set(1, 1, 1);
         }
     }
 }
