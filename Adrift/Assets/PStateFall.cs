@@ -28,8 +28,8 @@ namespace Adrift.Game
                         {  //TODO: Fix so we an use the normal from th actual real ground, and not the slope as we walked over...
                             p.mVelocity -= p.mLastGroundNormal * d;
                         }
-                        p.mVelocity.y += p.mJumpPower;
-                        p.mGroundingBlockTimer = 0.1f;
+                        p.mVelocity.y += p.JumpPower;
+                        p.GroundingBlockTimer = 0.1f;
                         p.mGrounded = false;
                     }
                 }
@@ -42,17 +42,17 @@ namespace Adrift.Game
                 }
                 if (Vector3.Dot(p.mInput, flatVel) < -0.3f)
                 {
-                    p.mVelocity.x -= p.mVelocity.x * p.mFallBreakFriction * Time.fixedDeltaTime;
-                    p.mVelocity.z -= p.mVelocity.z * p.mFallBreakFriction * Time.fixedDeltaTime;
+                    p.mVelocity.x -= p.mVelocity.x * p.FallBreakFriction * Time.fixedDeltaTime;
+                    p.mVelocity.z -= p.mVelocity.z * p.FallBreakFriction * Time.fixedDeltaTime;
                 }
-                if (speed > p.mMaxAirControlAcceleration)
+                if (speed > p.MaxAirControlAcceleration)
                 {
                     p.mInput -= flatVel * Mathf.Clamp(Vector3.Dot(flatVel, p.mInput) * 1.1f, 0, 1);
                 }
 
-                p.mVelocity += p.mInput * (p.mMoveForce * Time.fixedDeltaTime) * p.mAirControlFraction;
-                p.mVelocity.y -= p.mGravity * Time.fixedDeltaTime;
-                p.mVelocity -= p.mVelocity * p.mFallFriction * Time.fixedDeltaTime;
+                p.mVelocity += p.mInput * (p.MoveForce * Time.fixedDeltaTime) * p.AirControlFraction;
+                p.mVelocity.y -= p.Gravity * Time.fixedDeltaTime;
+                p.mVelocity -= p.mVelocity * p.FallFriction * Time.fixedDeltaTime;
             }
         }
     }
