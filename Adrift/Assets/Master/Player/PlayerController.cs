@@ -32,8 +32,9 @@ namespace Adrift.Game
     {
 
 
+        RaycastHit[] _hitBuffer = new RaycastHit[16];
 
-        //TODO:[Gafgar: Sat/01-02-2020] move over a bunch of varaibles to the states that use them as long as they are exclusive or meant ase "settings"
+        //TODO:[Gafgar: Sat/01-02-2020] move over a bunch of variables to the states that use them as long as they are exclusive or meant as "settings"
         public CharacterController mCtrl;
         public Camera mCam;
         public Vector3 mStartPos;
@@ -54,7 +55,7 @@ namespace Adrift.Game
         public Vector3 mVelocitySoft;
         public Vector3 mLeanPos;
         public Vector3 mHeadBobOffset; //local space of camera
-        public Vector3 mHeadBobOffsetSoft; //interrelated head bob
+        public Vector3 mHeadBobOffsetSoft; //interpolated head bob
         public Vector3 mInput;
         public bool mLastGronuded;
         public bool mGrounded;
@@ -63,6 +64,7 @@ namespace Adrift.Game
         public float mTimeSinceGround = 99;
         public float mPickupRange = 5.0f;
         public Vector3 mLastGroundNormal;
+        public GameObject mLastHeighlightObj = null;
 
         public ComponentBase mCarryingComponent;
 
@@ -151,35 +153,132 @@ namespace Adrift.Game
                 ////TODO:[Gafgar: Sat/01-02-2020] add collision tracing here
                 mCam.transform.position = mCtrl.transform.position + mCameraStartOffset + mLeanPos + q * mHeadBobOffsetSoft;
             }
+            {
+                GameObject rayHit = null;
+                
+                Debug.DrawLine(mCam.transform.position, mCam.transform.position + mCam.transform.forward * mPickupRange);
+                int nbHits = Physics.RaycastNonAlloc(mCam.transform.position, mCam.transform.forward, _hitBuffer, mPickupRange, -1, QueryTriggerInteraction.Ignore);
+                if (nbHits> 0)
+                {
+                    for (int index = nbHits; index < _hitBuffer.Length; index++)
+                    {
+                        _hitBuffer[index].distance = mPickupRange * 50;
+                    }
+                    System.Array.Sort(_hitBuffer, (a, b) => (a.distance > b.distance) ? 1 : ((a.distance < b.distance) ? -1 : 0));
+                    var obj = _hitBuffer[0].collider;
+                    if(obj.gameObject == gameObject)
+                    {
+                        if (nbHits > 1)
+                        {
+                            obj = _hitBuffer[1].collider;
+                        }
+                        else
+                        {
+                            obj = null;
+                        }
+                    }
+                    if (obj)
+                    {
+                        rayHit = obj.gameObject;
+                        Debug.Log("Hit: " + rayHit.name);
+                    }
+                }
+                if (rayHit != mLastHeighlightObj)
+                {
+                    if(mLastHeighlightObj)
+                    {
+                        
+                        ComponentBase comp = mLastHeighlightObj.GetComponent<ComponentBase>();
+                        if (comp)
+                        {
 
-            if (Input.GetButtonDown("Fire1"))
+                        }
+                        AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
+                        if (con)
+                        {
+                            con.SetHighlighted(false);
+                        }
+                    }
+                    mLastHeighlightObj = rayHit;
+                    if(mLastHeighlightObj)
+                    {
+                        Debug.DrawLine(mCam.transform.position + mCam.transform.forward, mLastHeighlightObj.transform.position);
+                        if (!mCarryingComponent)
+                        {
+                            ComponentBase comp = mLastHeighlightObj.GetComponent<ComponentBase>();
+                            if (comp)
+                            {
+                            }
+                        }
+                        AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
+                        if (con)
+                        {
+                            con.SetHighlighted(true);
+                        }
+                    }
+                }
+                if (mLastHeighlightObj)
+                {
+                    Debug.DrawLine(mCam.transform.position + mCam.transform.forward, mLastHeighlightObj.transform.position);
+                }
+            }
+            if (mLastHeighlightObj && Input.GetButtonDown("Fire1"))
             {
                 if (!mCarryingComponent)
                 {
-                    RaycastHit hit;
-                    if (Physics.Raycast(mCam.transform.position, mCam.transform.forward, out hit, mPickupRange, -1, QueryTriggerInteraction.Ignore))
+                    ComponentBase comp = mLastHeighlightObj.GetComponent<ComponentBase>();
+                    if (comp)
                     {
-                        if (hit.collider)
+                        if (comp.IsConnected())
                         {
-                            if (hit.collider.gameObject)
+                            if (comp.CanDisconnect())
                             {
-                                ComponentBase comp = hit.collider.gameObject.GetComponent<ComponentBase>();
-                                if (comp)
-                                {
-                                    mCarryingComponent = comp;
-                                    mCarryingComponent._collider.enabled = false;
-                                    mCarryingComponent._Body.isKinematic = true;
-                                }
+                                comp.Disconnect();
                             }
+                        }
+
+                        if (!comp.IsConnected())
+                        {
+                            Debug.Log("Picked up: " + comp.name);
+                            mCarryingComponent = comp;
+                            Collider[] colliders = mCarryingComponent.GetComponentsInChildren<Collider>();
+                            foreach (Collider c in colliders)
+                            {
+                                c.enabled = false;
+                            }
+                            mCarryingComponent._Body.isKinematic = true;
                         }
                     }
                 }
                 else
                 {
-                    mCarryingComponent._collider.enabled = true;
-                    mCarryingComponent._Body.isKinematic = false;
-                    mCarryingComponent._Body.AddForce(mCam.transform.forward * 2000);
+                    Collider[] colliders = mCarryingComponent.GetComponentsInChildren<Collider>();
+                    foreach(Collider c in colliders)
+                    {
+                        c.enabled = true;
+                    }
+
+                    AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
+                    if (con)
+                    {
+                        if (con.CanConnect(mCarryingComponent))
+                        {
+                            mCarryingComponent.ConnectTo(con);
+                        }
+                    }
+
+                    if (!mCarryingComponent.IsConnected())
+                    {
+                        Debug.Log("Dropped: " + mCarryingComponent.name);
+                        mCarryingComponent._Body.isKinematic = false;
+                        mCarryingComponent._Body.AddForce(mCam.transform.forward * 2000);
+                    }
+                    else
+                    {
+                        Debug.Log("Connected: " + mCarryingComponent.name + " to " + mCarryingComponent._Connection.name);
+                    }
                     mCarryingComponent = null;
+
                 }
             }
         
@@ -246,11 +345,13 @@ namespace Adrift.Game
             if(mCarryingComponent)
             {
                 float distance = 12;
+                float heightOffset = 0.3f;
                 if(mCarryingComponent._collider)
                 {
                     distance = mCarryingComponent._collider.bounds.extents.magnitude * 2 + 2.3f;
+                    heightOffset = mCarryingComponent._collider.bounds.extents.y;
                 }
-                mCarryingComponent.transform.position = mCam.transform.position + mCam.transform.forward * distance;
+                mCarryingComponent.transform.position = mCam.transform.position + mCam.transform.forward * distance + new Vector3(0,-heightOffset,0);
             }
 
             mVelocitySoft += (mVelocity - mVelocitySoft) * 3.0f * Time.fixedDeltaTime;
