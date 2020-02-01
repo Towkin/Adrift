@@ -54,7 +54,7 @@ namespace Adrift.Game
         public Vector3 mVelocitySoft;
         public Vector3 mLeanPos;
         public Vector3 mHeadBobOffset; //local space of camera
-        public Vector3 mHeadBobOffsetSoft; //interpelated head bob
+        public Vector3 mHeadBobOffsetSoft; //interrelated head bob
         public Vector3 mInput;
         public bool mLastGronuded;
         public bool mGrounded;
