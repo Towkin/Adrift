@@ -42,32 +42,32 @@ namespace Adrift.Game
                     //TODO:[Gafgar: Sat/01-02-2020] consider moving the grounding stuff into a function, as the logic there is a bit general but also very special and a bit complex. 
                     //we might need to tweak it, so it would then probably do best in only having it written once but used multiple times. But wait with that till we have at least one more use case
                     {
-                        if (p.mGroundDistance < p.mCtrl.skinWidth + 0.1f)
+                        if (p.mGroundDistance < p.Ctrl.skinWidth + 0.1f)
                         {
-                            p.mVelocity -= p.mLastGroundNormal * Vector3.Dot(p.mVelocity, p.mLastGroundNormal) * (1 - (p.mGroundDistance / (p.mCtrl.skinWidth + 0.4f))) * 0.8f;
+                            p.mVelocity -= p.mLastGroundNormal * Vector3.Dot(p.mVelocity, p.mLastGroundNormal) * (1 - (p.mGroundDistance / (p.Ctrl.skinWidth + 0.4f))) * 0.8f;
                         }
-                        if (p.mGroundDistance > p.mCtrl.skinWidth)
+                        if (p.mGroundDistance > p.Ctrl.skinWidth)
                         {
-                            p.mMoveOffset.y -= (p.mGroundDistance - p.mCtrl.skinWidth * 0.4f) * Time.fixedDeltaTime * 176.0f; //slowly get full ground contact
+                            p.mMoveOffset.y -= (p.mGroundDistance - p.Ctrl.skinWidth * 0.4f) * Time.fixedDeltaTime * 176.0f; //slowly get full ground contact
                         }
                     }
                     
                     //update input and acceleration
-                    if (Vector3.Dot(p.mVelocity, input) < p.mRunSpeedThresh)
+                    if (Vector3.Dot(p.mVelocity, input) < p.RunSpeedThresh)
                     {
-                        p.mVelocity += input * (p.mMoveForce * Time.fixedDeltaTime * 4.5f);
+                        p.mVelocity += input * (p.MoveForce * Time.fixedDeltaTime * 4.5f);
                     }
                     else
                     {
-                        p.mVelocity += input * (p.mMoveForce * Time.fixedDeltaTime);
+                        p.mVelocity += input * (p.MoveForce * Time.fixedDeltaTime);
                     }
                     
                     //update friction/breaking
-                    float friction = p.mMoveFriction;
+                    float friction = p.MoveFriction;
                     if (input.sqrMagnitude < 0.2f || Vector3.Dot(input, flatVelDir) < 0.77f)
                     {
 
-                        friction *= 1.0f + p.mFrictionBreakFactor * Mathf.Clamp(1 + (p.mVelocity.y * Mathf.Abs(p.mVelocity.y)), 0.1f, 1.3f); //don't break stronger when moving down slopes
+                        friction *= 1.0f + p.FrictionBreakFactor * Mathf.Clamp(1 + (p.mVelocity.y * Mathf.Abs(p.mVelocity.y)), 0.1f, 1.3f); //don't break stronger when moving down slopes
 
                     }
                     friction *= Time.fixedDeltaTime; //apply delta time here so we can clamp it and never remove more than 100% of the speed no matter the time step or friction value.
@@ -92,26 +92,26 @@ namespace Adrift.Game
                         p.mMoveOffset.y = 0;
                         p.mBufferedJumpTime = -1;
                         p.mVelocity -= p.mLastGroundNormal * Vector3.Dot(p.mVelocity, p.mLastGroundNormal);
-                        p.mVelocity.y += p.mJumpPower;
-                        p.mGroundingBlockTimer = 0.1f;
+                        p.mVelocity.y += p.JumpPower;
+                        p.GroundingBlockTimer = 0.1f;
                         p.mGrounded = false;
                     }
                 }
                 else
                 {
                     //Sliding on steep floor!
-                    p.mVelocity += input * (p.mMoveForce * Time.fixedDeltaTime) * 0.1f;
-                    p.mVelocity -= p.mVelocity * (p.mMoveFriction * Time.fixedDeltaTime * 0.5f);
-                    p.mVelocity.y -= p.mGravity * Time.fixedDeltaTime;
+                    p.mVelocity += input * (p.MoveForce * Time.fixedDeltaTime) * 0.1f;
+                    p.mVelocity -= p.mVelocity * (p.MoveFriction * Time.fixedDeltaTime * 0.5f);
+                    p.mVelocity.y -= p.Gravity * Time.fixedDeltaTime;
 
                     //jumping
                     if (p.mLastGronuded && p.mBufferedJumpTime + 0.15f > Time.fixedTime)
                     {
                         p.mBufferedJumpTime = -1;
                         p.mVelocity -= p.mLastGroundNormal * Vector3.Dot(p.mVelocity, p.mLastGroundNormal);
-                        p.mVelocity.y += p.mJumpPower * 0.7f;
-                        p.mVelocity += p.mLastGroundNormal * p.mJumpPower * 0.3f; //jump a bit out from the surface
-                        p.mGroundingBlockTimer = 0.1f;
+                        p.mVelocity.y += p.JumpPower * 0.7f;
+                        p.mVelocity += p.mLastGroundNormal * p.JumpPower * 0.3f; //jump a bit out from the surface
+                        p.GroundingBlockTimer = 0.1f;
                         p.mGrounded = false;
                     }
                     //convert downward motion into the slope to be along it
