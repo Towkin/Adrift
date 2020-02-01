@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 1723925566}
   - component: {fileID: 4871531530054164567}
   - component: {fileID: 8657197777804799920}
+  - component: {fileID: 5584012467066805660}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -397,21 +398,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4264a85b0ddc74d9c833bcc8198f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCtrl: {fileID: 0}
-  mCam: {fileID: 0}
-  mStartPos: {x: 0, y: 0, z: 0}
-  mCameraRotation: {x: 0, y: 0, z: 0}
-  mMoveForce: 35
-  mMoveFriction: 2.2
-  mFrictionBreakFactor: 4
-  mFallFriction: 0.05
-  mFallBreakFriction: 0.4
-  mGravity: 33
-  mJumpPower: 11
-  mMaxAirControlAcceleration: 7
-  mAirControlFraction: 0.3
-  mRunSpeedThresh: 3
-  mGroundingBlockTimer: 0
+  mSettings:
+    MoveForce: 35
+    MoveFriction: 2.2
+    FrictionBreakFactor: 4
+    FallFriction: 0.05
+    FallBreakFriction: 0.4
+    Gravity: 33
+    JumpPower: 11
+    MaxAirControlAcceleration: 7
+    AirControlFraction: 0.3
+    RunSpeedThresh: 3
+    PickupRange: 3
   mMoveOffset: {x: 0, y: 0, z: 0}
   mVelocity: {x: 0, y: 0, z: 0}
   mVelocitySoft: {x: 0, y: 0, z: 0}
@@ -424,13 +422,13 @@ MonoBehaviour:
   mGroundDistance: 0
   mBufferedJumpTime: -1
   mTimeSinceGround: 99
-  mPickupRange: 2.7
   mLastGroundNormal: {x: 0, y: 0, z: 0}
   mLastHeighlightObj: {fileID: 0}
   mHeighlightingConnectionj: {fileID: 0}
   mCarryingComponent: {fileID: 0}
   mCameraOffset: {x: 0, y: 0, z: 0}
   mState: {fileID: 8657197777804799920}
+  RecieveInput: 1
   Audio:
     Music: {fileID: 2076931680576435191}
     Ambience: {fileID: 2634765692234632273}
@@ -532,6 +530,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gronudedState: {fileID: -723041211248180618}
+--- !u!95 &5584012467066805660
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5864681439124157145}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7d41ec86086dfe548b090fbe97029f1b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8255648138253675681
 GameObject:
   m_ObjectHideFlags: 0

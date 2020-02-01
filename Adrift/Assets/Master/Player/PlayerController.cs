@@ -135,9 +135,11 @@ namespace Adrift.Game
         [SerializeField]
         APlayerState mState;
 
+        [HideInInspector]
+        public bool RecieveInput = true;
+
         public AudioData Audio;
         
-        public Rigidbody PlayerBody { get; private set; }  //[Gafgar: Sat/01-02-2020]: not sure if we want this? We can just go with a character controller right?
         private void Awake()
         {
             m_LoadData.Ctrl = GetComponent<CharacterController>();
@@ -145,8 +147,7 @@ namespace Adrift.Game
             mLeanPos.y = 3;
 
             mCameraStartOffset = mCameraOffset = Ctrl.transform.InverseTransformPoint(Cam.transform.position);
-
-            PlayerBody = GetComponent<Rigidbody>();
+            
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
@@ -181,26 +182,32 @@ namespace Adrift.Game
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetButtonDown("Jump"))
+            if (RecieveInput)
             {
-                mBufferedJumpTime = Time.time;
+                if (Input.GetButtonDown("Jump"))
+                {
+                    mBufferedJumpTime = Time.time;
+                }
+
+                CameraRotation += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f);
+
+                CameraRotation.Set(Mathf.Clamp(CameraRotation.x, -89f, 89f), CameraRotation.y, CameraRotation.z);
+                Vector3 upOffset = new Vector3(mLeanPos.x, 3.9f, mLeanPos.z);
+                upOffset.Normalize();
+                Cam.transform.rotation = Quaternion.FromToRotation(Vector3.up, upOffset) * Quaternion.Euler(CameraRotation);
+
+                mInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+                Quaternion q = Quaternion.Euler(0, CameraRotation.y, 0);
+                mInput = q * mInput;
+
+                //update camera offset in acceleration leaning
+                {
+                    ////TODO:[Gafgar: Sat/01-02-2020] add collision tracing here
+                    Cam.transform.position = Ctrl.transform.position + mCameraStartOffset + mLeanPos + q * mHeadBobOffsetSoft;
+                }
             }
 
-            CameraRotation += new Vector3(-Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X"), 0f);
 
-            CameraRotation.Set(Mathf.Clamp(CameraRotation.x, -89f, 89f), CameraRotation.y, CameraRotation.z);
-            Vector3 upOffset = new Vector3(mLeanPos.x, 3.9f, mLeanPos.z);
-            upOffset.Normalize();
-            Cam.transform.rotation = Quaternion.FromToRotation(Vector3.up, upOffset) * Quaternion.Euler(CameraRotation);
-
-            mInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            Quaternion q = Quaternion.Euler(0, CameraRotation.y, 0);
-            mInput = q * mInput;
-            //update camera offset in acceleration leaning
-            {
-                ////TODO:[Gafgar: Sat/01-02-2020] add collision tracing here
-                Cam.transform.position = Ctrl.transform.position + mCameraStartOffset + mLeanPos + q * mHeadBobOffsetSoft;
-            }
             {
                 GameObject rayHit = null;
 
