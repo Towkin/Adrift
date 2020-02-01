@@ -12,6 +12,9 @@ namespace Adrift.Game
         [SerializeField]
         private AnimationCurve m_OpenAnimation;
 
+        [SerializeField]
+        private FMODUnity.StudioEventEmitter m_DoorAudio;
+
         private float m_CurrentTime = 0f;
         private bool m_Open = false;
         private bool Open
@@ -52,7 +55,8 @@ namespace Adrift.Game
         {
             var startTime = 0f;
             var endTime = m_OpenAnimation.keys[m_OpenAnimation.keys.Length - 1].time;
-            
+            m_DoorAudio.Play();
+
             while (
                 (Open && m_CurrentTime < endTime) ||
                 (!Open && m_CurrentTime > startTime))
@@ -68,7 +72,6 @@ namespace Adrift.Game
                     Quaternion.Slerp(m_ClosedTransform.rotation, m_OpenTransform.rotation, openAmount)
                 );
             }
-            
             m_MoveDoorRoutine = null;
         }
     }

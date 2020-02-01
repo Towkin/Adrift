@@ -11,7 +11,13 @@ public class ComponentBase : MonoBehaviour
     public Vector3 _colliderExt;
     public bool _isLocked = false;
     public bool _isWorking = true;
+    public bool _lastHighlighted = false;
     public AbstractConnection _Connection;
+    public Material _RestoreMaterial;
+    public Material _highlightMaterial;
+    public MeshRenderer _MainMesh;
+    public string _TypeName = "Any";
+    float mSnapAnimTime = 0;
 
     public bool IsConnected()
     {
@@ -47,7 +53,7 @@ public class ComponentBase : MonoBehaviour
                 Assert.IsTrue(_Connection == con);
 
                 _Body.isKinematic = true;
-                transform.SetPositionAndRotation(_Connection._TranformProxy.transform.position, _Connection._TranformProxy.transform.rotation);
+                mSnapAnimTime = 1.0f;
             }
         }
     }
@@ -69,6 +75,43 @@ public class ComponentBase : MonoBehaviour
         else
         {
             _colliderExt.Set(1, 1, 1);
+        }
+    }
+
+
+    public void SetHighlighted(bool isHighlighted)
+    {
+        if (_MainMesh && isHighlighted != _lastHighlighted)
+        {
+            if (isHighlighted)
+            {
+                Assert.IsTrue(_MainMesh.material != _highlightMaterial);
+                _RestoreMaterial = _MainMesh.material;
+                _MainMesh.material = _highlightMaterial;
+            }
+            else
+            {
+                Assert.IsTrue(_RestoreMaterial);
+                _MainMesh.material = _RestoreMaterial;
+            }
+        }
+        _lastHighlighted = isHighlighted;
+    }
+
+    void FixedUpdate()
+    {
+        if (_Connection)
+        {
+            if (mSnapAnimTime > 0)
+            {
+                mSnapAnimTime -= Time.fixedDeltaTime*8.0f;
+                transform.position += ((_Connection._TranformProxy.transform.position + _Connection._TranformProxy.transform.up * 0.9f) - transform.position) * 17.0f * Time.fixedDeltaTime;
+            }
+            else
+            {
+                transform.position += ((_Connection._TranformProxy.transform.position ) - transform.position) * 29.0f * Time.fixedDeltaTime;
+            }
+            transform.rotation = Quaternion.Slerp(transform.rotation, _Connection._TranformProxy.transform.rotation, 12.0f * Time.fixedDeltaTime);
         }
     }
 }

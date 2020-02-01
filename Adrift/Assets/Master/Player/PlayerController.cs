@@ -74,6 +74,8 @@ namespace Adrift.Game
         public float mPickupRange = 5.0f;
         public Vector3 mLastGroundNormal;
         public GameObject mLastHeighlightObj = null;
+        public AbstractConnection mHeighlightingConnectionj = null;
+        float mHeighlightingConnectionRemoveTimer = 99.0f;
 
         public ComponentBase mCarryingComponent;
 
@@ -195,6 +197,17 @@ namespace Adrift.Game
                         rayHit = obj.gameObject;
                     }
                 }
+                if (mHeighlightingConnectionRemoveTimer > 0)
+                {
+                    if (mHeighlightingConnectionRemoveTimer < 0.18f)
+                    {
+                        mHeighlightingConnectionRemoveTimer += Time.deltaTime;
+                        if (mHeighlightingConnectionRemoveTimer >= 0.18f)
+                        {
+                            mHeighlightingConnectionj = null;
+                        }
+                    }
+                }
                 if (rayHit != mLastHeighlightObj)
                 {
                     if (mLastHeighlightObj)
@@ -203,6 +216,7 @@ namespace Adrift.Game
                         ComponentBase comp = mLastHeighlightObj.GetComponent<ComponentBase>();
                         if (comp)
                         {
+                            comp.SetHighlighted(false);
 
                         }
                         AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
@@ -212,6 +226,10 @@ namespace Adrift.Game
                         }
                     }
                     mLastHeighlightObj = rayHit;
+                    if (mHeighlightingConnectionRemoveTimer < 0)
+                    {
+                        mHeighlightingConnectionRemoveTimer = 0.01f;
+                    }
                     if (mLastHeighlightObj)
                     {
                         Debug.DrawLine(mCam.transform.position + mCam.transform.forward, mLastHeighlightObj.transform.position);
@@ -220,13 +238,32 @@ namespace Adrift.Game
                             ComponentBase comp = mLastHeighlightObj.GetComponent<ComponentBase>();
                             if (comp)
                             {
+                                comp.SetHighlighted(true);
                             }
                         }
                         AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
-                        if (con)
+
+                        if (con && !con.IsOccupied())
                         {
-                            con.SetHighlighted(true);
+                            if (mCarryingComponent)
+                            {
+                                if ( con.CanConnect(mCarryingComponent))
+                                {
+                                    con.SetHighlighted(true);
+
+
+
+                                    mHeighlightingConnectionj = con;
+                                    mHeighlightingConnectionRemoveTimer = -1;
+                                }
+                            }
+                            else
+                            {
+
+                                con.SetHighlighted(true);
+                            }
                         }
+                    
                     }
                 }
             }
@@ -289,9 +326,12 @@ namespace Adrift.Game
                         Debug.Log("Dropped: " + mCarryingComponent.name);
                         mCarryingComponent._Body.isKinematic = false;
                         mCarryingComponent._Body.AddForce(mCam.transform.forward * 2000);
+
+                        mVelocitySoft += (new Vector3(-10.0f* mCam.transform.forward.x, 0.0f, -10.0f* mCam.transform.forward.z));
                     }
                     else
                     {
+                        mVelocitySoft += (new Vector3(3.0f * mCam.transform.forward.x, -2.0f, 3.0f * mCam.transform.forward.z));
                         Debug.Log("Connected: " + mCarryingComponent.name + " to " + mCarryingComponent._Connection.name);
                     }
                     mCarryingComponent = null;
@@ -342,7 +382,7 @@ namespace Adrift.Game
 
             //look for walls and react to them (don't react to if we move in to stuff, as this has more control and it's enough to react to one hit per frame
             RaycastHit hit;
-            if (Physics.CapsuleCast(bottomSphere, topSphere, mCtrl.radius, mVelocity.normalized, out hit, mVelocity.magnitude * Time.fixedDeltaTime * 3, -1, QueryTriggerInteraction.Ignore))
+            if (Physics.CapsuleCast(bottomSphere, topSphere, mCtrl.radius, mVelocity.normalized, out hit, mVelocity.magnitude * Time.fixedDeltaTime * 3, ~LayerMask.NameToLayer("Items"), QueryTriggerInteraction.Ignore))
             {
                 // Debug.Log("hit :" + hit.collider.gameObject.name + ": normal: " + hit.normal);
                 if (hit.rigidbody && !hit.rigidbody.isKinematic)
@@ -366,21 +406,48 @@ namespace Adrift.Game
 
             if (mCarryingComponent)
             {
-                float distance = 12;
-                float heightOffset = 0.3f;
-                distance = mCarryingComponent._colliderExt.magnitude + 0.3f;
-                Vector3 up = mCam.transform.up;
+                if (!mHeighlightingConnectionj)
+                {
+                    float distance = 12;
+                    float heightOffset = 0.3f;
+                    distance = mCarryingComponent._colliderExt.magnitude + 0.3f;
+                    Vector3 up = mCam.transform.up;
 
-                float speedMod = Mathf.Min(1.0f, 0.2f + mCarryTime * 0.8f);
-                
-                heightOffset = 1.0f - up.y*0.5f;
-               
-                mCarryPosition += ((mCam.transform.position + mCam.transform.forward * distance - up * heightOffset) - mCarryPosition) * 50.0f* speedMod * Time.fixedDeltaTime;
-                mCarryRotation = Quaternion.Slerp(mCarryRotation, mCam.transform.rotation, 12.0f * speedMod * Time.fixedDeltaTime);
-                mCarryingComponent.transform.position = mCarryPosition;
-                mCarryingComponent.transform.rotation = mCarryRotation;
+                    float speedMod = Mathf.Min(1.0f, 0.2f + mCarryTime * 0.8f);
 
-                mCarryTime += Time.fixedDeltaTime;
+                    heightOffset = 1.0f - up.y * 0.5f;
+
+                    mCarryPosition += ((mCam.transform.position + mCam.transform.forward * distance - up * heightOffset) - mCarryPosition) * 50.0f * speedMod * Time.fixedDeltaTime;
+                    mCarryRotation = Quaternion.Slerp(mCarryRotation, mCam.transform.rotation, 12.0f * speedMod * Time.fixedDeltaTime);
+                    mCarryingComponent.transform.position = mCarryPosition;
+                    mCarryingComponent.transform.rotation = mCarryRotation;
+
+                    if (mCarryTime < 1.5f)
+                    {
+                        mCarryTime += Time.fixedDeltaTime;
+                    }
+                }
+                else
+                {
+                    if(mCarryTime > 0.01f)
+                    {
+                        if (mCarryTime > 0.9f)
+                        {
+                            mCarryTime = 0.9f;
+                        }
+                        mCarryTime -= Time.fixedDeltaTime*1.5f;
+                        if(mCarryTime < 0.01f)
+                        {
+                            mCarryTime = 0.01f;
+                        }
+                    }
+
+                    mCarryPosition += ((mHeighlightingConnectionj._TranformProxy.transform.position + mHeighlightingConnectionj._TranformProxy.transform.up*0.5f) - mCarryPosition) * 4.0f * Time.fixedDeltaTime;
+                    mCarryRotation = Quaternion.Slerp(mCarryRotation, mHeighlightingConnectionj._TranformProxy.transform.rotation, 6.0f *  Time.fixedDeltaTime);
+                    mCarryingComponent.transform.position = mCarryPosition;
+                    mCarryingComponent.transform.rotation = mCarryRotation;
+
+                }
             }
 
             mVelocitySoft += (mVelocity - mVelocitySoft) * 3.0f * Time.fixedDeltaTime;
@@ -423,7 +490,7 @@ namespace Adrift.Game
             if (mGroundingBlockTimer <= 0)
             {
                 RaycastHit hit;
-                if (Physics.SphereCast(new Ray(transform.position + new Vector3(0, -mCtrl.height * 0.5f + mCtrl.radius, 0), -Vector3.up), mCtrl.radius, out hit, 5.0f + thresh))
+                if (Physics.SphereCast(new Ray(transform.position + new Vector3(0, -mCtrl.height * 0.5f + mCtrl.radius, 0), -Vector3.up), mCtrl.radius, out hit, 5.0f + thresh, ~LayerMask.GetMask("Items"), QueryTriggerInteraction.Ignore))
                 {
                     mGroundDistance = hit.distance;
                     float d = Vector3.Dot(mVelocity, hit.normal);
@@ -432,14 +499,14 @@ namespace Adrift.Game
                         mLastGroundNormal = hit.normal;
                         mGrounded = true;
                         mTimeSinceGround = 0;
-                        if (Physics.Raycast(new Ray(transform.position + new Vector3(0, -mCtrl.height * 0.5f + 0.1f, 0), -Vector3.up), out hit, mCtrl.stepOffset + 0.2f))
+                        if (Physics.Raycast(new Ray(transform.position + new Vector3(0, -mCtrl.height * 0.5f + 0.1f, 0), -Vector3.up), out hit, mCtrl.stepOffset + 0.2f, ~LayerMask.GetMask("Items"), QueryTriggerInteraction.Ignore))
                         {
                             if (mLastGroundNormal.y < hit.normal.y)
                             {
                                 mLastGroundNormal = hit.normal;
                             }
                         }
-                        if (Physics.SphereCast(new Ray(transform.position + new Vector3(0, -mCtrl.height * 0.5f + mCtrl.radius * 1.9f, 0), -Vector3.up), mCtrl.radius * 1.4f, out hit, 6.0f))
+                        if (Physics.SphereCast(new Ray(transform.position + new Vector3(0, -mCtrl.height * 0.5f + mCtrl.radius * 1.9f, 0), -Vector3.up), mCtrl.radius * 1.4f, out hit, 6.0f, ~LayerMask.GetMask("Items"), QueryTriggerInteraction.Ignore))
                         {
                             if (hit.distance > 0.001f && mLastGroundNormal.y < hit.normal.y)
                             {
