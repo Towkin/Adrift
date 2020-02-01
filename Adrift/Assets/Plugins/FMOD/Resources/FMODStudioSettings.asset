@@ -18,8 +18,8 @@ MonoBehaviour:
   sourceProjectPath: 
   sourceBankPath: Assets\Master\Audio
   SourceBankPathUnformatted: 
-  AutomaticEventLoading: 1
-  BankLoadType: 0
+  AutomaticEventLoading: 0
+  BankLoadType: 1
   AutomaticSampleLoading: 0
   EncryptionKey: 
   ImportType: 0
@@ -46,7 +46,7 @@ MonoBehaviour:
     Value: 0
   OverlaySettings:
   - Platform: 1
-    Value: 0
+    Value: 1
   - Platform: 2
     Value: 0
   - Platform: 20
@@ -77,8 +77,11 @@ MonoBehaviour:
     Value: 32
   Plugins: []
   MasterBanks:
-  - Audio
   - Music
-  Banks: []
-  BanksToLoad: []
+  Banks:
+  - Sound
+  BanksToLoad:
+  - C:/Repositories/Adrift/Adrift/Desktop/Music.bank
+  - C:/Repositories/Adrift/Adrift/Desktop/Music.strings.bank
+  - C:/Repositories/Adrift/Adrift/Desktop/Sound.bank
   LiveUpdatePort: 9264

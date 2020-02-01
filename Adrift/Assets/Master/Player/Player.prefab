@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/Ambiance
+  Event: event:/Audio/Ambiance
   PlayEvent: 1
   StopEvent: 2
   AllowFadeout: 1
@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/Footsteps
-  PlayEvent: 1
-  StopEvent: 2
+  Event: event:/Audio/Footsteps
+  PlayEvent: 0
+  StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/Music/Rooms Master Event
+  Event: event:/Music/Master Music Event
   PlayEvent: 1
   StopEvent: 2
   AllowFadeout: 1
