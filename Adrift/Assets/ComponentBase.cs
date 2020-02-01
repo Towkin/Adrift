@@ -19,6 +19,15 @@ public class ComponentBase : MonoBehaviour
     public string _TypeName = "Any";
     float mSnapAnimTime = 0;
 
+    [System.Serializable]
+    public struct AudioData
+    {
+        public FMODUnity.StudioEventEmitter
+            Connect,
+            Disconnect;
+    };
+    public AudioData Audio;
+
     public bool IsConnected()
     {
         return _Connection != null;
@@ -40,6 +49,8 @@ public class ComponentBase : MonoBehaviour
             _Body.isKinematic = false;
             _Connection.SetConnection(null);
             Assert.IsTrue(_Connection == null);
+
+            Audio.Disconnect.Play();
         }
     }
 
@@ -54,6 +65,8 @@ public class ComponentBase : MonoBehaviour
 
                 _Body.isKinematic = true;
                 mSnapAnimTime = 1.0f;
+
+                Audio.Connect.Play();
             }
         }
     }
