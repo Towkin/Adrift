@@ -182,8 +182,13 @@ namespace Adrift.Game
                     mCarryingComponent = null;
                 }
             }
-        
         }
+
+        private void OnTriggerEnter(Collider other)
+            => other.GetComponent<IAutoInteractable>()?.Enter(gameObject);
+
+        private void OnTriggerExit(Collider other)
+            => other.GetComponent<IAutoInteractable>()?.Exit(gameObject);
 
         private void FixedUpdate()
         {
