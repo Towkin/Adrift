@@ -192,9 +192,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5864681439124157093}
-  - component: {fileID: 5864681439124157092}
   - component: {fileID: 5864681439124157147}
   - component: {fileID: 5864681439124157146}
+  - component: {fileID: 2947204426018087473}
+  - component: {fileID: -723041211248180618}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -217,20 +218,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &5864681439124157092
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5864681439124157145}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5864681439124157147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,9 +230,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4264a85b0ddc74d9c833bcc8198f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MoveSpeed: 100
-  m_MaxSpeed: 1
-  m_PlayerCamera: {fileID: 5864681437928441036}
+  mCtrl: {fileID: 0}
+  mCam: {fileID: 0}
+  mStartPos: {x: 0, y: 0, z: 0}
+  mCameraRotation: {x: 0, y: 0, z: 0}
+  mMoveForce: 35
+  mMoveFriction: 2.2
+  mFrictionBreakFactor: 4
+  mFallFriction: 0.05
+  mFallBreakFriction: 0.4
+  mGravity: 33
+  mJumpPower: 11
+  mMaxAirControlAcceleration: 7
+  mAirControlFraction: 0.3
+  mRunSpeedThresh: 3
+  mGroundingBlockTimer: 0
+  mMoveOffset: {x: 0, y: 0, z: 0}
+  mVelocity: {x: 0, y: 0, z: 0}
+  mVelocitySoft: {x: 0, y: 0, z: 0}
+  mLeanPos: {x: 0, y: 0, z: 0}
+  mInput: {x: 0, y: 0, z: 0}
+  mLastGronuded: 0
+  mGrounded: 0
+  mGroundDistance: 0
+  mBufferedJumpTime: -1
+  mTimeSinceGround: 99
+  mLastGroundNormal: {x: 0, y: 0, z: 0}
+  mCameraOffset: {x: 0, y: 0, z: 0}
+  mState: {fileID: 0}
 --- !u!54 &5864681439124157146
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -262,3 +274,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 2
+--- !u!143 &2947204426018087473
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5864681439124157145}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-723041211248180618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5864681439124157145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368ef9cc933648048879b18912f24697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallState: {fileID: 0}
