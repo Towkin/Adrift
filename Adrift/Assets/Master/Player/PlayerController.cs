@@ -53,15 +53,18 @@ namespace Adrift.Game
         public Vector3 mVelocity;
         public Vector3 mVelocitySoft;
         public Vector3 mLeanPos;
-        public Vector3 mHeadBobOffset; //local spce of camera
-        public Vector3 mHeadBobOffsetSoft; //local spce of camera
+        public Vector3 mHeadBobOffset; //local space of camera
+        public Vector3 mHeadBobOffsetSoft; //interpelated head bob
         public Vector3 mInput;
         public bool mLastGronuded;
         public bool mGrounded;
         public float mGroundDistance;
         public float mBufferedJumpTime = -1;
         public float mTimeSinceGround = 99;
+        public float mPickupRange = 5.0f;
         public Vector3 mLastGroundNormal;
+
+        public ComponentBase mCarryingComponent;
 
         public Vector3 mCameraOffset;
         public Vector3 mCameraStartOffset { get; private set; }
@@ -148,6 +151,38 @@ namespace Adrift.Game
                 ////TODO:[Gafgar: Sat/01-02-2020] add collision tracing here
                 mCam.transform.position = mCtrl.transform.position + mCameraStartOffset + mLeanPos + q * mHeadBobOffsetSoft;
             }
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                if (!mCarryingComponent)
+                {
+                    RaycastHit hit;
+                    if (Physics.Raycast(mCam.transform.position, mCam.transform.forward, out hit, mPickupRange, -1, QueryTriggerInteraction.Ignore))
+                    {
+                        if (hit.collider)
+                        {
+                            if (hit.collider.gameObject)
+                            {
+                                ComponentBase comp = hit.collider.gameObject.GetComponent<ComponentBase>();
+                                if (comp)
+                                {
+                                    mCarryingComponent = comp;
+                                    mCarryingComponent._collider.enabled = false;
+                                    mCarryingComponent._Body.isKinematic = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    mCarryingComponent._collider.enabled = true;
+                    mCarryingComponent._Body.isKinematic = false;
+                    mCarryingComponent._Body.AddForce(mCam.transform.forward * 2000);
+                    mCarryingComponent = null;
+                }
+            }
+        
         }
 
         private void FixedUpdate()
@@ -188,7 +223,7 @@ namespace Adrift.Game
             RaycastHit hit;
             if (Physics.CapsuleCast(bottomSphere, topSphere, mCtrl.radius, mVelocity.normalized, out hit, mVelocity.magnitude * Time.fixedDeltaTime * 3, -1, QueryTriggerInteraction.Ignore))
             {
-                Debug.Log("hit :" + hit.collider.gameObject.name + ": normal: " + hit.normal);
+               // Debug.Log("hit :" + hit.collider.gameObject.name + ": normal: " + hit.normal);
                 if(hit.rigidbody && !hit.rigidbody.isKinematic)
                 {
                     hit.rigidbody.AddForceAtPosition(mVelocity*200.7f, hit.point, ForceMode.Force);
@@ -206,6 +241,16 @@ namespace Adrift.Game
                         mVelocity -= n * d; //[Gafgar: Sat/01-02-2020]: consider only removing a % here, to make it easier to move around corners
                     }
                 }
+            }
+
+            if(mCarryingComponent)
+            {
+                float distance = 12;
+                if(mCarryingComponent._collider)
+                {
+                    distance = mCarryingComponent._collider.bounds.extents.magnitude * 2 + 2.3f;
+                }
+                mCarryingComponent.transform.position = mCam.transform.position + mCam.transform.forward * distance;
             }
 
             mVelocitySoft += (mVelocity - mVelocitySoft) * 3.0f * Time.fixedDeltaTime;
