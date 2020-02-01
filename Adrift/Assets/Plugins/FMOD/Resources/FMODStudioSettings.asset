@@ -19,7 +19,7 @@ MonoBehaviour:
   sourceBankPath: Assets\Master\Audio
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 0
-  BankLoadType: 1
+  BankLoadType: 0
   AutomaticSampleLoading: 0
   EncryptionKey: 
   ImportType: 0
