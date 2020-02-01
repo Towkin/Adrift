@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5013648465671701065}
   - component: {fileID: 5335402803191360895}
   - component: {fileID: 5335402803191360884}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ChipTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,9 +139,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Body: {fileID: 0}
   _collider: {fileID: 0}
+  _colliderExt: {x: 0, y: 0, z: 0}
   _isLocked: 0
   _isWorking: 1
+  _lastHighlighted: 0
   _Connection: {fileID: 0}
+  _RestoreMaterial: {fileID: 0}
+  _highlightMaterial: {fileID: 2100000, guid: 4137b9c7b4e6c2240a6cd572443e0246, type: 2}
+  _MainMesh: {fileID: 5335402803191360881}
+  _TypeName: Any
 --- !u!1 &5392097066818327814
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +159,7 @@ GameObject:
   - component: {fileID: 991056379765955538}
   - component: {fileID: 2482302312241139808}
   - component: {fileID: 1192635241570141606}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ChipCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

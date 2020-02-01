@@ -15,12 +15,12 @@ MonoBehaviour:
   Path: event:/Audio/Repairmachine
   guid: a4733ec63a512a4693a0eb30e0a82adb
   Banks:
-  - {fileID: 4141161195839213574}
+  - {fileID: -4478079065299657668}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: -2328673473674481160}
+  - {fileID: 1010502970293254877}
   MinDistance: 1
   MaxDistance: 20
   Length: 23353
@@ -56,7 +56,7 @@ MonoBehaviour:
   Path: event:/Audio/Footsteps
   guid: a0a339109f064247a3dface1c2e5ea8d
   Banks:
-  - {fileID: 4141161195839213574}
+  - {fileID: -4478079065299657668}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -79,13 +79,13 @@ MonoBehaviour:
   Path: event:/Music/Master Music Event
   guid: 9110b44882bbba4c9db1ddfa7b33a3a1
   Banks:
-  - {fileID: 653531261998778148}
+  - {fileID: 5236939385639267603}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 1659743245153492283}
-  - {fileID: 6217212382206261744}
+  - {fileID: -2365859226662238140}
+  - {fileID: -4491699925507946174}
   MinDistance: 0
   MaxDistance: 0
   Length: 75428
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/Master/Audio/Desktop/Music.strings.bank
   SubDir: 
-  lastModified: 637161814700000000
+  lastModified: 637161837512428822
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -124,7 +124,7 @@ MonoBehaviour:
   Path: event:/Music/Meny
   guid: 3b6e923e853bc6468919829c27e5c40d
   Banks:
-  - {fileID: 653531261998778148}
+  - {fileID: 5236939385639267603}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -132,6 +132,58 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 76800
+--- !u!114 &-4491699925507946174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Master Music Event/Room Switch
+  m_EditorClassIdentifier: 
+  Name: Room Switch
+  Min: 0
+  Max: 7
+  Default: 0
+  Exists: 1
+--- !u!114 &-4478079065299657668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Sound.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Master/Audio/Desktop/Sound.bank
+  SubDir: 
+  lastModified: 637161837512458824
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-2365859226662238140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Master Music Event/Glitch
+  m_EditorClassIdentifier: 
+  Name: Glitch
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &-2328673473674481160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +201,23 @@ MonoBehaviour:
   Max: 1
   Default: 0
   Exists: 1
+--- !u!114 &-2072648769634000733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Airlock/Room Switch
+  m_EditorClassIdentifier: 
+  Name: Room Switch
+  Min: 0
+  Max: 7
+  Default: 0
+  Exists: 1
 --- !u!114 &-1701880556869775878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +233,7 @@ MonoBehaviour:
   Path: event:/Audio/Fuses
   guid: fdbb00fd5f19274e96cd0026745f20e6
   Banks:
-  - {fileID: 4141161195839213574}
+  - {fileID: -4478079065299657668}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -186,8 +255,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: -5329414582661789578}
-  - {fileID: 653531261998778148}
-  - {fileID: 4141161195839213574}
+  - {fileID: 5236939385639267603}
+  - {fileID: -4478079065299657668}
   EditorEvents:
   - {fileID: 684355567578522357}
   - {fileID: -4793035045127447659}
@@ -205,10 +274,10 @@ MonoBehaviour:
   - {fileID: -1701880556869775878}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 653531261998778148}
+  - {fileID: 5236939385639267603}
   StringsBanks:
   - {fileID: -5329414582661789578}
-  stringsBankWriteTime: 637161814700000000
+  stringsBankWriteTime: 637161837512428822
   cacheVersion: 3
 --- !u!114 &321309293883266478
 MonoBehaviour:
@@ -225,7 +294,7 @@ MonoBehaviour:
   Path: event:/Audio/Modules
   guid: e2589c75e954fa4396c03e8c0c5ed0f2
   Banks:
-  - {fileID: 4141161195839213574}
+  - {fileID: -4478079065299657668}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -248,7 +317,7 @@ MonoBehaviour:
   Path: event:/Music/Stinger
   guid: e33f9b9be7883745aba34974ad302dda
   Banks:
-  - {fileID: 653531261998778148}
+  - {fileID: 5236939385639267603}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -289,15 +358,32 @@ MonoBehaviour:
   Path: event:/Music/Airlock
   guid: 285c6b91a4d6e84eb0033cf270f48282
   Banks:
-  - {fileID: 653531261998778148}
+  - {fileID: 5236939385639267603}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: -7443925390168452795}
+  - {fileID: -2072648769634000733}
   MinDistance: 0
   MaxDistance: 0
   Length: 54892
+--- !u!114 &1010502970293254877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Repairmachine/repairing
+  m_EditorClassIdentifier: 
+  Name: repairing
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &1659743245153492283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,12 +433,12 @@ MonoBehaviour:
   Path: event:/Music/Main Hall
   guid: 4c0d0a3e01a78a4ca07f32fd070291e2
   Banks:
-  - {fileID: 653531261998778148}
+  - {fileID: 5236939385639267603}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 1928147124721472727}
+  - {fileID: 6411878041376311139}
   MinDistance: 0
   MaxDistance: 0
   Length: 137151
@@ -374,6 +460,24 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &5236939385639267603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Master/Audio/Desktop/Music.bank
+  SubDir: 
+  lastModified: 637161837512418821
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &6058851661784909852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,7 +493,7 @@ MonoBehaviour:
   Path: event:/Audio/Controlpanel
   guid: 8ec03f05fd456e44a3797e75a025d688
   Banks:
-  - {fileID: 4141161195839213574}
+  - {fileID: -4478079065299657668}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -414,6 +518,23 @@ MonoBehaviour:
   Max: 7
   Default: 0
   Exists: 1
+--- !u!114 &6411878041376311139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Main Hall/Glitch
+  m_EditorClassIdentifier: 
+  Name: Glitch
+  Min: 0
+  Max: 1
+  Default: 0
+  Exists: 1
 --- !u!114 &7011281607205546259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,7 +550,7 @@ MonoBehaviour:
   Path: event:/Music/Hall
   guid: 926cd889746bb9479864142ad6334729
   Banks:
-  - {fileID: 653531261998778148}
+  - {fileID: 5236939385639267603}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -452,7 +573,7 @@ MonoBehaviour:
   Path: event:/Audio/Shuttledoor
   guid: 1197a9d4ae0684439a11a27641b68fad
   Banks:
-  - {fileID: 4141161195839213574}
+  - {fileID: -4478079065299657668}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -475,7 +596,7 @@ MonoBehaviour:
   Path: event:/Audio/Ambiance
   guid: 01725b13b1267b49824088780870ea90
   Banks:
-  - {fileID: 4141161195839213574}
+  - {fileID: -4478079065299657668}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -498,7 +619,7 @@ MonoBehaviour:
   Path: event:/Audio/Pipes
   guid: 8079ff2dfb368a4ea9c842fdbb9de263
   Banks:
-  - {fileID: 4141161195839213574}
+  - {fileID: -4478079065299657668}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1

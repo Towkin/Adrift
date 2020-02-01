@@ -13,6 +13,7 @@ public class AbstractConnection : MonoBehaviour
     public AbstractConnection[] _dependentConnections;
     public event System.Action<AbstractConnection> OnStateChanged;
     public GameObject _TranformProxy;
+    public string _TypeName = "Any";
     public bool CanDisconnect()
     {
         return true;
@@ -25,7 +26,16 @@ public class AbstractConnection : MonoBehaviour
 
     public bool CanConnect(ComponentBase comp)
     {
-        return true; //Do type checking here
+        if (_TypeName == "Any" || _TypeName == comp._TypeName)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool IsOccupied() //occupied 
+    {
+        return _Component != null;
     }
 
     public bool SetConnection(ComponentBase component)
@@ -49,6 +59,7 @@ public class AbstractConnection : MonoBehaviour
     }
 
     bool _lastHighlighted;
+
     public void SetHighlighted(bool isHighlighted)
     {
         if(isHighlighted != _lastHighlighted)

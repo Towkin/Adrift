@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5792640902127479610}
   - component: {fileID: 2634765692234632273}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ambience
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8729454415134564731}
   - component: {fileID: 4711614281950993756}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Footstep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5050438144777987295}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Audio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 5864681437928441026}
   - component: {fileID: 1881556580132087979}
   - component: {fileID: 5864260853233841049}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -361,7 +361,8 @@ GameObject:
   - component: {fileID: -723041211248180618}
   - component: {fileID: 1723925566}
   - component: {fileID: 4871531530054164567}
-  m_Layer: 0
+  - component: {fileID: 8657197777804799920}
+  m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -426,9 +427,10 @@ MonoBehaviour:
   mPickupRange: 2.7
   mLastGroundNormal: {x: 0, y: 0, z: 0}
   mLastHeighlightObj: {fileID: 0}
+  mHeighlightingConnectionj: {fileID: 0}
   mCarryingComponent: {fileID: 0}
   mCameraOffset: {x: 0, y: 0, z: 0}
-  mState: {fileID: 1723925566}
+  mState: {fileID: 8657197777804799920}
   Audio:
     Music: {fileID: 2076931680576435191}
     Ambience: {fileID: 2634765692234632273}
@@ -480,7 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368ef9cc933648048879b18912f24697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallState: {fileID: 1723925566}
+  fallState: {fileID: 8657197777804799920}
 --- !u!114 &1723925566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -517,6 +519,19 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 0
   OverrideMaxDistance: 0
+--- !u!114 &8657197777804799920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5864681439124157145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1857f2bed7beb4d8a08c269f9fe30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gronudedState: {fileID: -723041211248180618}
 --- !u!1 &8255648138253675681
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4911206557511784481}
   - component: {fileID: 2076931680576435191}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
