@@ -30,7 +30,16 @@ namespace Adrift.Game
 
     public class PlayerController : MonoBehaviour
     {
+        [System.Serializable]
+        public struct AudioData
+        {
+            public FMODUnity.StudioEventEmitter 
+                Music,
+                Ambience,
+                Footstep,
+                Landing;
 
+        }
 
         RaycastHit[] _hitBuffer = new RaycastHit[16];
 
@@ -78,7 +87,8 @@ namespace Adrift.Game
         [SerializeField]
         APlayerState mState;
 
-
+        public AudioData Audio;
+        
         public Rigidbody PlayerBody { get; private set; }  //[Gafgar: Sat/01-02-2020]: not sure if we want this? We can just go with a character controller right?
         private void Awake()
         {
