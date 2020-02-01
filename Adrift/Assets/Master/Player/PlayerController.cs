@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Adrift.Game
 {
@@ -33,7 +34,6 @@ namespace Adrift.Game
 
 
         //TODO:[Gafgar: Sat/01-02-2020] move over a bunch of varaibles to the states that use them as long as they are exclusive or meant ase "settings"
-        [SerializeField]
         public CharacterController mCtrl;
         public Camera mCam;
         public Vector3 mStartPos;
