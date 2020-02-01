@@ -365,12 +365,12 @@ namespace Adrift.Game
                 
                 heightOffset = 1.0f - up.y*0.5f;
                
-                mCarryPosition += ((mCam.transform.position + mCam.transform.forward * distance - up * heightOffset) - mCarryPosition) * 60.0f* speedMod * Time.fixedDeltaTime;
+                mCarryPosition += ((mCam.transform.position + mCam.transform.forward * distance - up * heightOffset) - mCarryPosition) * 50.0f* speedMod * Time.fixedDeltaTime;
                 mCarryRotation = Quaternion.Slerp(mCarryRotation, mCam.transform.rotation, 12.0f * speedMod * Time.fixedDeltaTime);
                 mCarryingComponent.transform.position = mCarryPosition;
                 mCarryingComponent.transform.rotation = mCarryRotation;
 
-
+                mCarryTime += Time.fixedDeltaTime;
             }
 
             mVelocitySoft += (mVelocity - mVelocitySoft) * 3.0f * Time.fixedDeltaTime;
