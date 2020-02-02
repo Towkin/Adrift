@@ -3877,7 +3877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 5864681439347592678}
   m_WakeUpTime: 1
-  m_Music: {fileID: 0}
+  m_Music: {fileID: 5864681439347592679}
   m_PlayerAnimation: {fileID: 5864681439347592677}
 --- !u!4 &2094894906
 Transform:
@@ -4097,21 +4097,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
         type: 0}
-    - target: {fileID: -723041211248180618, guid: 66a78091b9d352644b4ed88c75e0e923,
-        type: 3}
-      propertyPath: fallState
-      value: 
-      objectReference: {fileID: 1723925566}
-    - target: {fileID: 2947204426018087473, guid: 66a78091b9d352644b4ed88c75e0e923,
-        type: 3}
-      propertyPath: m_Radius
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2947204426018087473, guid: 66a78091b9d352644b4ed88c75e0e923,
-        type: 3}
-      propertyPath: m_StepOffset
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5864681439124157093, guid: 66a78091b9d352644b4ed88c75e0e923,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4177,6 +4162,21 @@ PrefabInstance:
       propertyPath: mMoveForce
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 2947204426018087473, guid: 66a78091b9d352644b4ed88c75e0e923,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2947204426018087473, guid: 66a78091b9d352644b4ed88c75e0e923,
+        type: 3}
+      propertyPath: m_StepOffset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -723041211248180618, guid: 66a78091b9d352644b4ed88c75e0e923,
+        type: 3}
+      propertyPath: fallState
+      value: 
+      objectReference: {fileID: 1723925566}
     - target: {fileID: 1091492349826296754, guid: 66a78091b9d352644b4ed88c75e0e923,
         type: 3}
       propertyPath: m_LocalPosition.z
