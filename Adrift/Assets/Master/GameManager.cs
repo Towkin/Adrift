@@ -83,6 +83,7 @@ namespace Adrift.Game
 
             m_State = GameState.Ended;
             OnGameEnd?.Invoke();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("win");
         }
 
         public void QuitGame() 
