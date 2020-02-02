@@ -32,7 +32,7 @@ public class StatusGUI : MonoBehaviour
         {
             _isActive = false;
         }
-        if(comp._hasHiddenWorkingStatus)
+        else if(comp._hasHiddenWorkingStatus)
         {
             _isActive = true;
             _changeToSprite = _spriteUnknown;
