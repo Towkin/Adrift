@@ -135,6 +135,9 @@ namespace Adrift.Game
         [SerializeField]
         APlayerState mState;
 
+        [HideInInspector]
+        public bool RecieveInput = true;
+
         public AudioData Audio;
 
         StatusGUI _statusGUI;
@@ -148,7 +151,6 @@ namespace Adrift.Game
 
             mCameraStartOffset = mCameraOffset = Ctrl.transform.InverseTransformPoint(Cam.transform.position);
 
-            PlayerBody = GetComponent<Rigidbody>();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
@@ -185,6 +187,8 @@ namespace Adrift.Game
         // Update is called once per frame
         void Update()
         {
+            if (RecieveInput)
+            {
             if (Input.GetButtonDown("Jump"))
             {
                 mBufferedJumpTime = Time.time;
@@ -200,11 +204,15 @@ namespace Adrift.Game
             mInput = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
             Quaternion q = Quaternion.Euler(0, CameraRotation.y, 0);
             mInput = q * mInput;
+
             //update camera offset in acceleration leaning
             {
                 ////TODO:[Gafgar: Sat/01-02-2020] add collision tracing here
                 Cam.transform.position = Ctrl.transform.position + mCameraStartOffset + mLeanPos + q * mHeadBobOffsetSoft;
             }
+            }
+
+
             {
                 GameObject rayHit = null;
 
