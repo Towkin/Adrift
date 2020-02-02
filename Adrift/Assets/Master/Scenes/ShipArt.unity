@@ -5229,6 +5229,14 @@ PrefabInstance:
       propertyPath: m_Audio
       value: 
       objectReference: {fileID: 5864681439347592679}
+    - target: {fileID: 755338597, guid: eda5fd3d330340d488522e9a54b61488, type: 3}
+      propertyPath: shapeRadius
+      value: 17.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 776053022, guid: eda5fd3d330340d488522e9a54b61488, type: 3}
+      propertyPath: shapeRadius
+      value: 15.74
+      objectReference: {fileID: 0}
     - target: {fileID: 4088786123302113236, guid: eda5fd3d330340d488522e9a54b61488,
         type: 3}
       propertyPath: m_Audio
