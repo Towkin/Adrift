@@ -52,7 +52,7 @@ namespace Adrift.Game
             m_State = GameState.Menu;
 
             if (m_Music != null && m_Music.EventInstance.hasHandle())
-                m_Music.SetParameter("RoomSwitch", 0f);
+                m_Music.SetParameter("Room Switch", 0f);
         }
 
         public void BeginGame()
@@ -65,7 +65,7 @@ namespace Adrift.Game
             StartCoroutine(DisablePlayerAnimation());
 
             if (m_Music != null && m_Music.EventInstance.hasHandle())
-                m_Music.SetParameter("RoomSwitch", 1f);
+                m_Music.SetParameter("Room Switch", 1f);
 
             OnGameBegin?.Invoke();
         }
