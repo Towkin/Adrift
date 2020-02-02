@@ -6,6 +6,7 @@ using UnityEngine.Assertions;
 public class AbstractMachine : MonoBehaviour
 {
     public GameObject[] _IfActiveObject; //Object activated when the machine is active and hidden when inactive
+    public GameObject[] _IfInactiveObject; //Object activated when the machine is active and hidden when inactive
     public AbstractConnection[] _connectionRoots;
     public event System.Action<AbstractMachine> OnStateChanged;
     public AbstractMachine[] _dependentOnMachines; //a list of machines that need to work for this machine to work
@@ -23,6 +24,7 @@ public class AbstractMachine : MonoBehaviour
         }
         UpdateIsWorkingState();
 
+        ApplyWorkingState();
     }
 
 
@@ -102,14 +104,23 @@ public class AbstractMachine : MonoBehaviour
         }
         if (lastIsWorking != isWorking)
         {
-            foreach (var obj in _IfActiveObject)
-            {
-                obj.SetActive(isWorking);
-            }
-            if (OnStateChanged != null)
-            {
-                OnStateChanged.Invoke(this);
-            }
+            ApplyWorkingState();
+        }
+    }
+
+    void ApplyWorkingState()
+    {
+        if (OnStateChanged != null)
+        {
+            OnStateChanged.Invoke(this);
+        }
+        foreach (var obj in _IfActiveObject)
+        {
+            obj.SetActive(isWorking);
+        }
+        foreach (var obj in _IfInactiveObject)
+        {
+            obj.SetActive(!isWorking);
         }
     }
 
