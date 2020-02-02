@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Adrift.Game
 {
@@ -52,7 +53,15 @@ namespace Adrift.Game
 
             m_State = GameState.Playing;
             m_PlayerAnimation.SetTrigger("BeginGame");
+            StartCoroutine(DisablePlayerAnimation());
+
             OnGameBegin?.Invoke();
+        }
+
+        private IEnumerator DisablePlayerAnimation()
+        {
+            yield return new WaitForSeconds(1f);
+            m_PlayerAnimation.enabled = false;
         }
 
         public void EndGame()
