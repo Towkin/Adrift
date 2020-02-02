@@ -82,7 +82,7 @@ namespace Adrift.Game
                 return;
 
             m_State = GameState.Ended;
-            OnGameEnd();
+            OnGameEnd?.Invoke();
         }
 
         public void QuitGame() 

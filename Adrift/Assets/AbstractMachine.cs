@@ -11,6 +11,7 @@ public class AbstractMachine : MonoBehaviour
     public event System.Action<AbstractMachine> OnStateChanged;
     public AbstractMachine[] _dependentOnMachines; //a list of machines that need to work for this machine to work
 
+    public bool isWorking = false;
 
     private void Awake()
     {
@@ -54,7 +55,6 @@ public class AbstractMachine : MonoBehaviour
         UpdateIsWorkingState();
     }
 
-    public bool isWorking = false;
     bool CheckIsWorkingState(AbstractConnection con)
     {
         if (con._Component)
