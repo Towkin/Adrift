@@ -438,7 +438,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5864681437928441025}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0.932, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5864681439124157093}
@@ -631,6 +631,7 @@ GameObject:
   - component: {fileID: 1723925566}
   - component: {fileID: 4871531530054164567}
   - component: {fileID: 5584012467066805660}
+  - component: {fileID: 1393608278981539196}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -668,8 +669,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mSettings:
-    MoveForce: 35
-    MoveFriction: 2.2
+    MoveForce: 30
+    MoveFriction: 2.5
     FrictionBreakFactor: 4
     FallFriction: 0.05
     FallBreakFriction: 0.4
@@ -678,7 +679,7 @@ MonoBehaviour:
     MaxAirControlAcceleration: 7
     AirControlFraction: 0.3
     RunSpeedThresh: 3
-    PickupRange: 3
+    PickupRange: 3.3
   mMoveOffset: {x: 0, y: 0, z: 0}
   mVelocity: {x: 0, y: 0, z: 0}
   mVelocitySoft: {x: 0, y: 0, z: 0}
@@ -696,7 +697,7 @@ MonoBehaviour:
   mHeighlightingConnectionj: {fileID: 0}
   mCarryingComponent: {fileID: 0}
   mCameraOffset: {x: 0, y: 0, z: 0}
-  mState: {fileID: 1723925566}
+  mState: {fileID: 1393608278981539196}
   RecieveInput: 1
   Audio:
     Music: {fileID: 2076931680576435191}
@@ -730,7 +731,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 2.3
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.5
@@ -749,7 +750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368ef9cc933648048879b18912f24697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallState: {fileID: 1723925566}
+  fallState: {fileID: 1393608278981539196}
 --- !u!114 &1723925566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,6 +806,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1393608278981539196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5864681439124157145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1857f2bed7beb4d8a08c269f9fe30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gronudedState: {fileID: -723041211248180618}
 --- !u!1 &8255648138253675681
 GameObject:
   m_ObjectHideFlags: 0
