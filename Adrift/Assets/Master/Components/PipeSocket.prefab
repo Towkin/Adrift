@@ -83,7 +83,7 @@ MonoBehaviour:
   _Component: {fileID: 0}
   _dependentConnections: []
   _TranformProxy: {fileID: 8463904639848629484}
-  _TypeName: Chip
+  _TypeName: Peter
 --- !u!65 &6237233333048310128
 BoxCollider:
   m_ObjectHideFlags: 0

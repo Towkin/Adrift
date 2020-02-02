@@ -82,7 +82,7 @@ MonoBehaviour:
   _Component: {fileID: 0}
   _dependentConnections: []
   _TranformProxy: {fileID: 2957615162506252862}
-  _TypeName: Chip
+  _TypeName: Rangmar
 --- !u!136 &7271318826150244530
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -163,7 +163,7 @@ MonoBehaviour:
   _RestoreMaterial: {fileID: 0}
   _highlightMaterial: {fileID: 2100000, guid: 4137b9c7b4e6c2240a6cd572443e0246, type: 2}
   _MainMesh: {fileID: 4464014748969966668}
-  _TypeName: Chip
+  _TypeName: Peter
   Audio:
     Connect: {fileID: 5399019752564409709}
     Disconnect: {fileID: 8053529365990524957}
