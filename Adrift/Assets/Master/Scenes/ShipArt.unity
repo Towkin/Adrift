@@ -3208,11 +3208,6 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 65536
       objectReference: {fileID: 0}
-    - target: {fileID: 2236332956961948825, guid: 3ef6663520b52fe47b470308b9e5cab4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ef6663520b52fe47b470308b9e5cab4, type: 3}
 --- !u!4 &1381361492 stripped
