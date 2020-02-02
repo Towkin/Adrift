@@ -157,7 +157,7 @@ MonoBehaviour:
   _colliderExt: {x: 0, y: 0, z: 0}
   _isLocked: 0
   _isWorking: 1
-  _hasHiddenWorkingStatus: 1
+  _hasHiddenWorkingStatus: 0
   _lastHighlighted: 0
   _Connection: {fileID: 0}
   _RestoreMaterial: {fileID: 0}
@@ -328,6 +328,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FuseFuse
       objectReference: {fileID: 0}
+    - target: {fileID: 2335641729925779975, guid: 4dc4675def7abeb4ebb679625e653112,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 016b51180de81e146bea9c19cdbd7648, type: 2}
     - target: {fileID: -4216859302048453862, guid: 4dc4675def7abeb4ebb679625e653112,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -383,11 +388,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2335641729925779975, guid: 4dc4675def7abeb4ebb679625e653112,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 016b51180de81e146bea9c19cdbd7648, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dc4675def7abeb4ebb679625e653112, type: 3}
 --- !u!4 &1428825467807982568 stripped

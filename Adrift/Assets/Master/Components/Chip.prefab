@@ -183,7 +183,7 @@ MonoBehaviour:
   _colliderExt: {x: 0, y: 0, z: 0}
   _isLocked: 0
   _isWorking: 1
-  _hasHiddenWorkingStatus: 1
+  _hasHiddenWorkingStatus: 0
   _lastHighlighted: 0
   _Connection: {fileID: 0}
   _RestoreMaterial: {fileID: 0}

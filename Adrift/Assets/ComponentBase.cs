@@ -82,12 +82,7 @@ public class ComponentBase : MonoBehaviour
     {
         _Body = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-        if(_Connection)
-        {
-            var c = _Connection;
-            Disconnect();
-            ConnectTo(c);
-        }
+        
         if(_collider)
         {
             _colliderExt = _collider.bounds.extents;
@@ -95,6 +90,19 @@ public class ComponentBase : MonoBehaviour
         else
         {
             _colliderExt.Set(1, 1, 1);
+        }
+
+    }
+
+    private void Start()
+    {
+
+        if (_Connection)
+        {
+            var c = _Connection;
+            _Connection = null;
+            //Disconnect();
+            ConnectTo(c);
         }
     }
 
