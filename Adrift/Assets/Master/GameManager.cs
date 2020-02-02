@@ -10,6 +10,12 @@ namespace Adrift.Game
         public PlayerController Player => m_Player;
 
         [SerializeField]
+        private float m_WakeUpTime = 1.0f;
+
+        [SerializeField]
+        private FMODUnity.StudioEventEmitter m_Music = null;
+
+        [SerializeField]
         private Animator
             m_PlayerAnimation = null;
 
@@ -44,6 +50,9 @@ namespace Adrift.Game
                 return;
 
             m_State = GameState.Menu;
+
+            if (m_Music != null && m_Music.EventInstance.hasHandle())
+                m_Music.SetParameter("RoomSwitch", 0f);
         }
 
         public void BeginGame()
@@ -55,12 +64,15 @@ namespace Adrift.Game
             m_PlayerAnimation.SetTrigger("BeginGame");
             StartCoroutine(DisablePlayerAnimation());
 
+            if (m_Music != null && m_Music.EventInstance.hasHandle())
+                m_Music.SetParameter("RoomSwitch", 1f);
+
             OnGameBegin?.Invoke();
         }
 
         private IEnumerator DisablePlayerAnimation()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(m_WakeUpTime);
             m_PlayerAnimation.enabled = false;
         }
 
