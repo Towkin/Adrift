@@ -15,6 +15,9 @@ namespace Adrift.Game
         [SerializeField]
         private FMODUnity.StudioEventEmitter m_DoorAudio;
 
+        [SerializeField]
+        private AbstractMachine m_HookedMachine = null;
+
         private float m_CurrentTime = 0f;
         private bool m_Open = false;
         private bool Open
@@ -22,31 +25,48 @@ namespace Adrift.Game
             get => m_Open;
             set
             {
+                if (m_Open == value)
+                    return;
+
                 m_Open = value;
                 if (m_MoveDoorRoutine == null)
                     m_MoveDoorRoutine = StartCoroutine(MoveDoor());
             }
         }
 
-        private readonly HashSet<GameObject> CurrentActors = new HashSet<GameObject>();
+        private void OnEnable()
+        {
+            if (m_HookedMachine != null)
+                m_HookedMachine.OnStateChanged += HookedMachine_OnStateChanged;
+        }
+
+        private void OnDisable()
+        {
+            if (m_HookedMachine != null)
+                m_HookedMachine.OnStateChanged -= HookedMachine_OnStateChanged;
+        }
+
+        private void UpdateOpen()
+            => Open = !(m_HookedMachine != null && !m_HookedMachine.isWorking) && m_ActorCount > 0;
+
+        private void HookedMachine_OnStateChanged(AbstractMachine obj)
+        {
+            UpdateOpen();
+        }
+
+        int m_ActorCount = 0;
         public bool Enter(GameObject actor)
         {
-            if (CurrentActors.Count == 0)
-                Open = true;
-
-            return CurrentActors.Add(actor);
+            m_ActorCount++;
+            UpdateOpen();
+            return true;
         }
         
         public bool Exit(GameObject actor)
         {
-            if (CurrentActors.Remove(actor))
-            {
-                if (CurrentActors.Count == 0)
-                    Open = false;
-
-                return true;
-            }
-            return false;
+            m_ActorCount--;
+            UpdateOpen();
+            return true;
         }
 
 

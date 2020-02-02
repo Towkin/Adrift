@@ -501,7 +501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3122292294243502295
 Transform:
   m_ObjectHideFlags: 0
@@ -569,6 +569,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_DoorAudio: {fileID: 5389493534106099864}
+  m_HookedMachine: {fileID: 2623645343008332727}
 --- !u!1 &2346475244166746595
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +646,6 @@ MonoBehaviour:
   _IfActiveObject:
   - {fileID: 8876454134786367123}
   - {fileID: 8406647309755994618}
-  - {fileID: 2236332956961948825}
   _IfInactiveObject:
   - {fileID: 414626404601450221}
   - {fileID: 775525412025448458}
