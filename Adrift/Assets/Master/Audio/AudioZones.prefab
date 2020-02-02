@@ -27,107 +27,10 @@ Transform:
   m_LocalPosition: {x: -5.3919764, y: -1.0431519, z: 1.8276889}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8489769295155644654}
   - {fileID: 4036025617059972497}
-  - {fileID: 1854988165017446737}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2121748745230169074
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 3851027710933643443}
-    m_Modifications:
-    - target: {fileID: 4450084509613237759, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_Name
-      value: AudioZone MainHall
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.3919764
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 7.772311
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 25.45092
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 9.848648
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 31.653881
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937430388168800614, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_Parameter
-      value: MainHall
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58d668c151c02bb4d839e5ac9001bb3d, type: 3}
---- !u!4 &1854988165017446737 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-    type: 3}
-  m_PrefabInstance: {fileID: 2121748745230169074}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4381190157400055602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,7 +41,7 @@ PrefabInstance:
     - target: {fileID: 4450084509613237759, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
       propertyPath: m_Name
-      value: AudioZone Hallway
+      value: AudioZone Cockpit
       objectReference: {fileID: 0}
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
@@ -148,12 +51,12 @@ PrefabInstance:
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7668481
+      value: -0.53
       objectReference: {fileID: 0}
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.067689
+      value: 36.09
       objectReference: {fileID: 0}
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
@@ -178,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
@@ -198,7 +101,7 @@ PrefabInstance:
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 19.883255
+      value: 15.410317
       objectReference: {fileID: 0}
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
@@ -208,12 +111,7 @@ PrefabInstance:
     - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 10.405547
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937430388168800614, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_Parameter
-      value: Hallway
+      value: 13.884122
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58d668c151c02bb4d839e5ac9001bb3d, type: 3}
@@ -222,99 +120,4 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
     type: 3}
   m_PrefabInstance: {fileID: 4381190157400055602}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8151078712565912141
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 3851027710933643443}
-    m_Modifications:
-    - target: {fileID: 4450084509613237759, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_Name
-      value: AudioZone Airlock
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.3919764
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.7668481
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -24.377687
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10.961
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 6.6262856
-      objectReference: {fileID: 0}
-    - target: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 8.027733
-      objectReference: {fileID: 0}
-    - target: {fileID: 3937430388168800614, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-        type: 3}
-      propertyPath: m_Parameter
-      value: Airlock
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58d668c151c02bb4d839e5ac9001bb3d, type: 3}
---- !u!4 &8489769295155644654 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 346718718555331235, guid: 58d668c151c02bb4d839e5ac9001bb3d,
-    type: 3}
-  m_PrefabInstance: {fileID: 8151078712565912141}
   m_PrefabAsset: {fileID: 0}
