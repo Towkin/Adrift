@@ -34,8 +34,11 @@ namespace Adrift.Game
                     mTimer += Time.fixedDeltaTime* speed;
                     if (Mathf.Sign(Mathf.Sin(mTimer)) != Mathf.Sign(Mathf.Sin(lastTimer)))
                     {
-                        p.Audio.Footstep.SetParameter("Speed", speed);
-                        p.Audio.Footstep.Play();
+                        if (p.Audio.Footstep.EventInstance.hasHandle())
+                        {
+                            p.Audio.Footstep.SetParameter("Speed", speed);
+                            p.Audio.Footstep.Play();
+                        }
                     }
 
                     //update grounding movement. Do it as an offset, as we don't want to affect jumps or such things with walking off small steps

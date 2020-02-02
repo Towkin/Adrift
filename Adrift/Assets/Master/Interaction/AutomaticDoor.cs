@@ -55,7 +55,10 @@ namespace Adrift.Game
         {
             var startTime = 0f;
             var endTime = m_OpenAnimation.keys[m_OpenAnimation.keys.Length - 1].time;
-            m_DoorAudio.Play();
+            if (m_DoorAudio.EventInstance.hasHandle())
+            {
+                m_DoorAudio.Play();
+            }
 
             while (
                 (Open && m_CurrentTime < endTime) ||

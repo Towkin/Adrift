@@ -12,7 +12,10 @@ public class PlayAudioOnCollision : MonoBehaviour
     {
         if (collision.relativeVelocity.sqrMagnitude > m_MinRelativeVelocity * m_MinRelativeVelocity)
         {
-            m_Audio.Play();
+            if (m_Audio.EventInstance.hasHandle())
+            {
+                m_Audio.Play();
+            }
         }
     }
 }

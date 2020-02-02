@@ -136,7 +136,9 @@ namespace Adrift.Game
         APlayerState mState;
 
         public AudioData Audio;
-        
+
+        StatusGUI _statusGUI;
+
         public Rigidbody PlayerBody { get; private set; }  //[Gafgar: Sat/01-02-2020]: not sure if we want this? We can just go with a character controller right?
         private void Awake()
         {
@@ -160,6 +162,8 @@ namespace Adrift.Game
             {
                 mState.Enter(this, null);
             }
+
+            _statusGUI = GetComponentInChildren<StatusGUI>();
         }
 
 
@@ -262,6 +266,7 @@ namespace Adrift.Game
                     {
                         mHeighlightingConnectionRemoveTimer = 0.01f;
                     }
+                    bool hasSetStatusGUI = false;
                     if (mLastHeighlightObj)
                     {
                         Debug.DrawLine(Cam.transform.position + Cam.transform.forward, mLastHeighlightObj.transform.position);
@@ -271,6 +276,12 @@ namespace Adrift.Game
                             if (comp)
                             {
                                 comp.SetHighlighted(true);
+
+                                if (_statusGUI)
+                                {
+                                    hasSetStatusGUI = true;
+                                    _statusGUI.ShowStatusFor(comp);
+                                }
                             }
                         }
                         AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
@@ -296,6 +307,11 @@ namespace Adrift.Game
                             }
                         }
                     
+                    }
+
+                    if (_statusGUI && !hasSetStatusGUI)
+                    {
+                        _statusGUI.ShowStatusFor(null);
                     }
                 }
             }
@@ -342,6 +358,7 @@ namespace Adrift.Game
                     {
                         c.enabled = true;
                     }
+
                     if (mLastHeighlightObj)
                     {
                         AbstractConnection con = mLastHeighlightObj.GetComponent<AbstractConnection>();
@@ -353,6 +370,7 @@ namespace Adrift.Game
                             }
                         }
                     }
+
                     if (!mCarryingComponent.IsConnected())
                     {
                         Debug.Log("Dropped: " + mCarryingComponent.name);

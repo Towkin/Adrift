@@ -11,6 +11,7 @@ public class ComponentBase : MonoBehaviour
     public Vector3 _colliderExt;
     public bool _isLocked = false;
     public bool _isWorking = true;
+    public bool _hasHiddenWorkingStatus = false;
     public bool _lastHighlighted = false;
     public AbstractConnection _Connection;
     public Material _RestoreMaterial;
@@ -50,7 +51,11 @@ public class ComponentBase : MonoBehaviour
             _Connection.SetConnection(null);
             Assert.IsTrue(_Connection == null);
 
-            Audio.Disconnect.Play();
+            if (Audio.Disconnect.EventInstance.hasHandle())
+            {
+                Audio.Disconnect.Play();
+            }
+           
         }
     }
 
@@ -65,8 +70,10 @@ public class ComponentBase : MonoBehaviour
 
                 _Body.isKinematic = true;
                 mSnapAnimTime = 1.0f;
-
-                Audio.Connect.Play();
+                if (Audio.Connect.EventInstance.hasHandle())
+                {
+                    Audio.Connect.Play();
+                }
             }
         }
     }

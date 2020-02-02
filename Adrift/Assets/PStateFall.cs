@@ -11,9 +11,11 @@ namespace Adrift.Game
         {
             if (p.mGrounded)
             {
-                p.Audio.Landing.Play();
-                p.Audio.Landing.SetParameter("Speed", Mathf.Abs(p.mVelocity.y));
-
+                if (p.Audio.Landing.EventInstance.hasHandle())
+                {
+                    p.Audio.Landing.Play();
+                    p.Audio.Landing.SetParameter("Speed", Mathf.Abs(p.mVelocity.y));
+                }
                 p.Transit(gronudedState);
             }
             else
