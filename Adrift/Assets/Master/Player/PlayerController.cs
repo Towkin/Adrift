@@ -355,6 +355,9 @@ namespace Adrift.Game
                                     c.enabled = false;
                                 }
                                 mCarryingComponent._Body.isKinematic = true;
+
+                                if (Audio.Music.EventInstance.hasHandle() && !mCarryingComponent._isWorking)
+                                    Audio.Music.SetParameter("Glitch", 1.0f);
                             }
                         }
                     }
@@ -386,6 +389,9 @@ namespace Adrift.Game
                         mCarryingComponent._Body.AddForce(Cam.transform.forward * 2000);
 
                         mVelocitySoft += (new Vector3(-10.0f* Cam.transform.forward.x, 0.0f, -10.0f* Cam.transform.forward.z));
+
+                        if (Audio.Music.EventInstance.hasHandle())
+                            Audio.Music.SetParameter("Glitch", 0.0f);
                     }
                     else
                     {
